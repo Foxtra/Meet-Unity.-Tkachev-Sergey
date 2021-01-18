@@ -12,9 +12,9 @@ namespace Assets.Scripts
         {
             if (collider.gameObject.CompareTag("Player"))
             {
-                foreach (var SpawnPlace in SpawnPlaces)
+                foreach (var spawnPlace in SpawnPlaces)
                 {
-                    Instantiate(Enemy, SpawnPlace.position, transform.rotation);
+                    Instantiate(Enemy, spawnPlace.position, transform.rotation);
                 }
             }
         }
