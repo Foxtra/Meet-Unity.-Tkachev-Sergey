@@ -24,7 +24,7 @@ namespace Assets.Scripts
             if (other.gameObject.CompareTag("Enemy"))
             {
                 var enemy = other.GetComponent<EnemyController>();
-                enemy.GetDamage(_damage);
+                enemy.TakeDamage(_damage);
                 Destroy(gameObject);
             }
 
