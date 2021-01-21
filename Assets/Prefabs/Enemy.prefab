@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307730380556896994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.483, z: 0.74}
+  m_LocalPosition: {x: 0, y: 0.91, z: 0.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4171089666694540308}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba02c492a7598684aaeb9a70a1dea0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eggBall: {fileID: 6151692736700906216, guid: 513029eb99c95604692ea0ff09aa857e, type: 3}
+  _eggBall: {fileID: 7226890292603803286, guid: 4ff2db8e2f6155a46a9edc3f5f78e70e, type: 3}
   _firePosition: {fileID: 6011980041278228513}
   _health: 1
   _rotateSpeed: 0.05

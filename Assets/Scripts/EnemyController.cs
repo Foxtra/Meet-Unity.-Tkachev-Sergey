@@ -12,6 +12,7 @@ namespace Assets.Scripts
         [SerializeField] private int _health = 1;
         [SerializeField] private float _rotateSpeed = 0.05f;
         [SerializeField] private float _fireRate = 0.8f;
+        [SerializeField] private float _eggSpeed = 1f;
 
         private Quaternion _initialRotation;
         private Vector3 _eggDir;
@@ -34,7 +35,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             _initialRotation = transform.rotation;
             _player = GameObject.FindGameObjectWithTag("Player");
@@ -59,7 +60,7 @@ namespace Assets.Scripts
             //don't use instantiate, use pool of objects instead
             var eggBall = Instantiate(_eggBall, _firePosition.position, transform.rotation);
             _eggDir = _player.transform.position - _firePosition.position;
-            eggBall.GetComponent<Rigidbody>().AddForce(_eggDir.normalized * 4f, ForceMode.Impulse);
+            eggBall.GetComponent<Rigidbody>().AddForce(_eggDir.normalized * _eggSpeed, ForceMode.Impulse);
             _nextFire = Time.time + _fireRate;
         }
 

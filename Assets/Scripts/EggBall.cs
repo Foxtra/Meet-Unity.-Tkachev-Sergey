@@ -6,7 +6,6 @@ namespace Assets.Scripts
     public class EggBall : MonoBehaviour
     {
         [SerializeField] private float _lifeTime = 4f;
-        [SerializeField] private float _speed = 5f;
         [SerializeField] private int _damage = 1;
 
         private Rigidbody _rigidbody;
@@ -21,8 +20,8 @@ namespace Assets.Scripts
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                var enemy = other.gameObject.GetComponent<PlayerController>();
-                enemy.TakeDamage(_damage);
+                var player = other.gameObject.GetComponent<PlayerController>();
+                player.TakeDamage(_damage);
                 Destroy(gameObject);
             }
 

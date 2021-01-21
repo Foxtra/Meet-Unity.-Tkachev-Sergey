@@ -6,9 +6,6 @@ namespace Assets.Scripts
 {
     public class PlayerController : MonoBehaviour, ITakeDamage
     {
-        //[SerializeField] private GameObject _fireBall;
-        //[SerializeField] private Transform _firePosition;
-
         [SerializeField] private float _moveSpeed = 4f;
         [SerializeField] private float _rotateSpeed = 6f;
 
@@ -18,14 +15,29 @@ namespace Assets.Scripts
         private Rigidbody _rigidbody;
         private Vector3 _direction = Vector3.zero;
 
-        private bool _fire;
-
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
         }
 
-        private void Start()
+        public bool TakeHealth(int healthToRestore)
+        {
+            if (_currentHealth + healthToRestore < _maxHealth)
+            {
+                _currentHealth += healthToRestore;
+                return true;
+            }
+
+            if (_currentHealth + healthToRestore == _maxHealth)
+            {
+                _currentHealth = _maxHealth;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
@@ -34,11 +46,6 @@ namespace Assets.Scripts
         {
             _direction.x = Input.GetAxisRaw("Horizontal");
             _direction.z = Input.GetAxisRaw("Vertical");
-
-            //if (Input.GetButtonDown("Fire1"))
-            //{
-            //    _fire = true;
-            //}
         }
 
         private void FixedUpdate()
@@ -50,17 +57,6 @@ namespace Assets.Scripts
             }
 
             _rigidbody.MovePosition(transform.position + _moveSpeed * Time.fixedDeltaTime * _direction);
-
-            //if (_fire)
-            //{
-            //    Fire();
-            //}
         }
-
-        //private void Fire()
-        //{
-        //    Instantiate(_fireBall, _firePosition.position, _firePosition.rotation);
-        //    _fire = false;
-        //}
     }
 }
