@@ -122,6 +122,7 @@ MonoBehaviour:
   _patrolDelay: 2
   _eggSpeed: 1
   _rayCastAttackLength: 2
+  _reducingPlayerHpDelay: 1.1
 --- !u!135 &7955977167612581240
 SphereCollider:
   m_ObjectHideFlags: 0

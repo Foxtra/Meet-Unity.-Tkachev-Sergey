@@ -1,4 +1,5 @@
-﻿using Assets.Constants;
+﻿using System.Collections;
+using Assets.Constants;
 using Assets.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,6 +21,7 @@ namespace Assets.Scripts
         [SerializeField] private float _patrolDelay = 2f;
         [SerializeField] private float _eggSpeed = 1f;
         [SerializeField] private float _rayCastAttackLength = 0.3f;
+        [SerializeField] private float _reducingPlayerHpDelay = 1f;
 
         private Vector3 _eggDir;
         private GameObject _player;
@@ -35,13 +37,11 @@ namespace Assets.Scripts
 
         private bool _fire;
         private bool _isFollow;
-        private bool _isAlive = true;
         private bool _isWait;
+        public bool IsAlive { get; private set; } = true;
 
         public void TakeDamage(int damage)
         {
-            print("Ouch: " + damage);
-
             _health -= damage;
 
             if (_health <= 0)
@@ -62,7 +62,7 @@ namespace Assets.Scripts
 
         private void FixedUpdate()
         {
-            if (_isAlive)
+            if (IsAlive)
             {
                 if (_isWait)
                 {
@@ -113,8 +113,14 @@ namespace Assets.Scripts
             if (!CheckObjectByRayCast(_AttackPoint, _rayCastAttackLength, out _hit)) return;
             if (_hit.transform.CompareTag(Tags.Player))
             {
-                _playerController.TakeDamage(_attackDamage);
+                StartCoroutine(DamagePlayer(_attackDamage, _reducingPlayerHpDelay));
             }
+        }
+
+        private IEnumerator DamagePlayer(int damage, float delayTime)
+        {
+            yield return new WaitForSeconds(delayTime);
+            _playerController.TakeDamage(damage);
         }
 
         private void Patrol()
@@ -147,7 +153,7 @@ namespace Assets.Scripts
 
         private void Die()
         {
-            _isAlive = false;
+            IsAlive = false;
             _animator.SetTrigger(AnimationStates.Death);
             // Destroy(gameObject);
         }

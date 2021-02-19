@@ -17,9 +17,6 @@ namespace Assets.Scripts
         [SerializeField] private float _rayCastJumpLength = 0.1f;
         [SerializeField] private float _rayCastAttackLength = 0.3f;
         [SerializeField] private float _overlapRadius = 0.5f;
-
-        [SerializeField] private int _currentHealth = 10;
-        [SerializeField] private int _maxHealth = 10;
         [SerializeField] private int _attackDamage = 1;
         [SerializeField] private int _strongAttackDamage = 2;
 
@@ -31,12 +28,16 @@ namespace Assets.Scripts
         private bool _isJump;
         private bool _isAttack;
         private bool _isStrongAttack;
+
+        [field: SerializeField] public int MaxHealth { get; } = 10;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 10;
+
         public bool IsAlive { get; private set; } = true;
 
         public void TakeDamage(int damage)
         {
-            _currentHealth -= damage;
-            if (_currentHealth <= 0)
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
             {
                 IsAlive = false;
                 _direction = Vector3.zero;
@@ -46,15 +47,15 @@ namespace Assets.Scripts
 
         public bool TakeHealth(int healthToRestore)
         {
-            if (_currentHealth + healthToRestore < _maxHealth)
+            if (CurrentHealth + healthToRestore < MaxHealth)
             {
-                _currentHealth += healthToRestore;
+                CurrentHealth += healthToRestore;
                 return true;
             }
 
-            if (_currentHealth + healthToRestore == _maxHealth)
+            if (CurrentHealth + healthToRestore == MaxHealth || CurrentHealth < MaxHealth)
             {
-                _currentHealth = _maxHealth;
+                CurrentHealth = MaxHealth;
                 return true;
             }
 
